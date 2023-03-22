@@ -8,7 +8,8 @@ async function generateNews() {
   // An array of URLs for websites that provide RSS feeds
   const urls = [
     "https://vnexpress.net/rss/tin-moi-nhat.rss",
-    "https://danviet.vn/rss/home.rss"
+    "https://danviet.vn/rss/home.rss",
+    "https://kenh14.vn/rss.rss"
   ];
 
   // An empty array to store the news items

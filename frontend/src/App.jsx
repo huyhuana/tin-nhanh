@@ -4,7 +4,7 @@ import { NewsContextProvider } from "../contexts/NewsContext";
 import Navbar from "./components/Navbar";
 import NewsPage from "./components/News";
 
-const API_BASE_URL = "https://feature-fast-news.d17zten96y7ebp.amplifyapp.com";
+const API_BASE_URL = "http://localhost:3000";
 
 const App = () => {
   const [newsItems, setNewsItems] = useState([]);
@@ -16,6 +16,7 @@ const App = () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/api/news`);
       setNewsItems(response.data);
+      console.log(response.data)
       setLoading(false);
     } catch (error) {
       console.log(error);

@@ -14,7 +14,6 @@ async function generateNews() {
 
   // An empty array to store the news items
   let newsItems = [];
-
   // Create an array of promises that fetch the RSS feeds
   const rssPromises = urls.map(async (url) => {
     let response;
@@ -30,14 +29,27 @@ async function generateNews() {
       // Extract the required fields from the RSS item
       const postUrl = $(item).find("link").text();
       const title = $(item).find("title").text();
-      const thumbnail =
-        $(item).find("media\\:content, content").attr("url") ||
-        $(item).find("enclosure").attr("url") ||
-        $(item).find("image").attr("url") ||
-        $(item).find("og:image").attr("content") ||
-        $(item).find("twitter:image").attr("content") ||
-        "https://via.placeholder.com/150"; // Default thumbnail
 
+      const description = $(item).find("description").text();
+      console.log(description);
+      let thumbnail = "";
+      if(description) {
+        var des_as_html = document.createElement( 'description' );
+        des_as_html.innerHTML = description;
+        console.log(des_as_html.innerText);
+        const summary = des_as_html.innerText;
+        thumbnail = des_as_html.getElementsByTagName('img')[0];
+      }
+
+      if(!thumbnail){
+        thumbnail =
+          $(item).find("media\\:content, content").attr("url") ||
+          $(item).find("enclosure").attr("url") ||
+          $(item).find("image").attr("url") ||
+          $(item).find("og:image").attr("content") ||
+          $(item).find("twitter:image").attr("content") ||
+          "https://via.placeholder.com/150"; // Default thumbnail
+      }
       const date = $(item).find("pubDate").text();
 
       // Add the news item to the array
